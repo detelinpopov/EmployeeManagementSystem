@@ -1,5 +1,6 @@
 using Domain.Entities;
 using EmployeeManagementApi.Models;
+using EmployeeManagementApi.Validators;
 using Interfaces.Infrastructure.Commands;
 using Interfaces.Infrastructure.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -28,10 +29,10 @@ namespace EmployeeManagementApi.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Put(EmployeeData employeeData)
         {
-            var validateEmployeeDataResult = ValidateEmployeeData(employeeData);
-            if (!validateEmployeeDataResult.Success)
+            var validatedEmployeeResult = EmployeeValidator.Validate(employeeData);
+            if (!validatedEmployeeResult.Success)
             {
-                return BadRequest(validateEmployeeDataResult.ErrorMessage);
+                return BadRequest(validatedEmployeeResult.ErrorMessage);
             }
 
             var addEmployeeResult = await _addEmployeeCommand.ExecuteAsync(employeeData);
@@ -79,25 +80,6 @@ namespace EmployeeManagementApi.Controllers
             }
 
             return BadRequest(result.GetErrorsAsString());
-        }
-
-        private static ValidateEmployeeDataResult ValidateEmployeeData(EmployeeData employeeData)
-        {
-            var result = new ValidateEmployeeDataResult() { Success = true };
-
-            if (string.IsNullOrWhiteSpace(employeeData.FullName))
-            {
-                result.Success = false;
-                result.ErrorMessage = "Employee name is required.";
-            }
-
-            if (string.IsNullOrWhiteSpace(employeeData.Title))
-            {
-                result.Success = false;
-                result.ErrorMessage = "Employee title is required.";
-            }
-
-            return result;
-        }
+        }      
     }
 }
