@@ -13,6 +13,7 @@ namespace Infrastructure.Entities
         [Required]
         public string FullName { get; set; }
 
+        [Required]
         public string Title { get; set; }
 
         public int? ManagerId { get; set; }

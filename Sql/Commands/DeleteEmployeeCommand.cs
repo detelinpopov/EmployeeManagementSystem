@@ -21,7 +21,6 @@ namespace Infrastructure.Repositories
         {
             var deleteEmployeeResult = new DeleteEmployeeResult();
             var employeeToDelete = await _dbContext.Employees.Include(nameof(IEmployee.ManagedEmployees)).FirstOrDefaultAsync(e => e.Id == id);
-
             if (employeeToDelete == null)
             {
                 deleteEmployeeResult.Errors.Add(new ErrorModel { ErrorMessage = $"Employee with Id = '{id}' was not found." });
@@ -33,27 +32,15 @@ namespace Infrastructure.Repositories
             _dbContext.Remove(employeeToDelete);
             await _dbContext.SaveChangesAsync();
             return deleteEmployeeResult;
-        } 
-        
+        }
+
         private static DeleteEmployeeResult ReassignDirectReports(Employee employeeToDelete)
         {
             var deleteEmployeeResult = new DeleteEmployeeResult();
-
-            if (employeeToDelete.ManagerId == null)
+            foreach (var directReport in employeeToDelete.ManagedEmployees)
             {
-                foreach (var directReport in employeeToDelete.ManagedEmployees)
-                {
-                    directReport.ManagerId = null;
-                    deleteEmployeeResult.ReassignedEmployees.Add(directReport.ToEmployeeModelResult());
-                }
-            }
-            else
-            {
-                foreach (var directReport in employeeToDelete.ManagedEmployees)
-                {
-                    directReport.ManagerId = employeeToDelete.ManagerId;
-                    deleteEmployeeResult.ReassignedEmployees.Add(directReport.ToEmployeeModelResult());
-                }
+                directReport.ManagerId = employeeToDelete.ManagerId == null ? null : employeeToDelete.ManagerId;
+                deleteEmployeeResult.ReassignedEmployees.Add(directReport.ToEmployeeModelResult());
             }
 
             return deleteEmployeeResult;

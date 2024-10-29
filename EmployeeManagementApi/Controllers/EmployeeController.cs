@@ -1,4 +1,5 @@
 using Domain.Entities;
+using EmployeeManagementApi.Models;
 using Interfaces.Infrastructure.Commands;
 using Interfaces.Infrastructure.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,12 @@ namespace EmployeeManagementApi.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Put(EmployeeData employeeData)
         {
+            var validateEmployeeDataResult = ValidateEmployeeData(employeeData);
+            if (!validateEmployeeDataResult.Success)
+            {
+                return BadRequest(validateEmployeeDataResult.ErrorMessage);
+            }
+
             var addEmployeeResult = await _addEmployeeCommand.ExecuteAsync(employeeData);
 
             if (addEmployeeResult.Success)
@@ -72,6 +79,25 @@ namespace EmployeeManagementApi.Controllers
             }
 
             return BadRequest(result.GetErrorsAsString());
+        }
+
+        private static ValidateEmployeeDataResult ValidateEmployeeData(EmployeeData employeeData)
+        {
+            var result = new ValidateEmployeeDataResult() { Success = true };
+
+            if (string.IsNullOrWhiteSpace(employeeData.FullName))
+            {
+                result.Success = false;
+                result.ErrorMessage = "Employee name is required.";
+            }
+
+            if (string.IsNullOrWhiteSpace(employeeData.Title))
+            {
+                result.Success = false;
+                result.ErrorMessage = "Employee title is required.";
+            }
+
+            return result;
         }
     }
 }
