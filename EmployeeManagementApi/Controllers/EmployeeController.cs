@@ -1,5 +1,4 @@
 using Domain.Entities;
-using EmployeeManagementApi.Models;
 using EmployeeManagementApi.Validators;
 using Interfaces.Infrastructure.Commands;
 using Interfaces.Infrastructure.Queries;
