@@ -1,5 +1,5 @@
-﻿using Domain.Entities;
-using Domain.Entities.Results;
+﻿using Domain.Entities.Results;
+
 namespace Interfaces.Infrastructure.Commands
 {
     public interface IDeleteEmployeeCommand

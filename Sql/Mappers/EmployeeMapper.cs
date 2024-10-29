@@ -21,7 +21,6 @@ namespace Infrastructure.Mappers
         public static IEnumerable<EmployeeModelResult> ToEmployeeResultList(this IEnumerable<IEmployee> employees)
         {
             var mappedEntities = new List<EmployeeModelResult>();
-
             foreach (var employee in employees)
             {
                 mappedEntities.Add(ToEmployeeModelResult(employee));

@@ -42,7 +42,7 @@ namespace Infrastructure.Queries
             foreach (var manager in topManagers)
             {
                 var employeeResult = manager.ToEmployeeModelResult();
-                result.TopManagers.Add(employeeResult);
+                result.CompanyHierarchy.Add(employeeResult);
 
                 employeeResult.DirectReports = await GetDirectReportsAsync(manager.Id);
             }

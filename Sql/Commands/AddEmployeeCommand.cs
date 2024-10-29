@@ -35,6 +35,12 @@ namespace Infrastructure.Repositories
                 Title = employeeData.Title
             };
 
+            if (string.IsNullOrWhiteSpace(employeeData.FullName))
+            {
+                addEmployeeResult.Errors.Add(new ErrorModel { ErrorMessage = "Employee name is required." });
+                return addEmployeeResult;
+            }
+
             _dbContext.Employees.Add(employee);
 
             if (employeeData.ManagerId > 0)
@@ -54,6 +60,11 @@ namespace Infrastructure.Repositories
             if (existingEmployee == null)
             {
                 addEmployeeResult.Errors.Add(new ErrorModel { ErrorMessage = $"Employee with Id = '{employeeData.Id}' was not found." });
+                return addEmployeeResult;
+            }
+            if (string.IsNullOrWhiteSpace(employeeData.FullName))
+            {
+                addEmployeeResult.Errors.Add(new ErrorModel { ErrorMessage = "Employee name is required." });
                 return addEmployeeResult;
             }
 
