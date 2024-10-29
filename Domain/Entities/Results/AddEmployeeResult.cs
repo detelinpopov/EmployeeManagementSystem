@@ -2,5 +2,6 @@
 {
     public class AddEmployeeResult : CommandResult
     {
+        public int EmployeeId { get; set; }
     }
 }

@@ -43,6 +43,7 @@ namespace Infrastructure.Repositories
             }
 
             await _dbContext.SaveChangesAsync();
+            addEmployeeResult.EmployeeId = employee.Id;
             return addEmployeeResult;
         }
 
@@ -63,6 +64,7 @@ namespace Infrastructure.Repositories
             await UpdateEmployeeManagerAsync(employeeData, existingEmployee, addEmployeeResult);
 
             await _dbContext.SaveChangesAsync();
+            addEmployeeResult.EmployeeId = employeeData.Id;
             return addEmployeeResult;
         }
 
