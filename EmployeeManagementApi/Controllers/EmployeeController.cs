@@ -11,17 +11,14 @@ namespace EmployeeManagementApi.Controllers
     {
         private readonly IAddEmployeeCommand _addEmployeeCommand;
 
-        private readonly IGetCompanyHierarchyQuery _getCompanyHierarchyQuery;
-
-        private readonly IGetEmployeeQuery _getEmployeeQuery;
+        private readonly IGetEmployeesQuery _getEmployeesQuery;
 
         private readonly IDeleteEmployeeCommand _deleteEmployeeCommand;
 
-        public EmployeeController(IAddEmployeeCommand addEmployeeCommand, IGetCompanyHierarchyQuery getCompanyHierarchyQuery, IGetEmployeeQuery getEmployeeQuery, IDeleteEmployeeCommand deleteEmployeeCommand)
+        public EmployeeController(IAddEmployeeCommand addEmployeeCommand, IGetEmployeesQuery getEmployeesQuery, IDeleteEmployeeCommand deleteEmployeeCommand)
         {
             _addEmployeeCommand = addEmployeeCommand;
-            _getCompanyHierarchyQuery = getCompanyHierarchyQuery;
-            _getEmployeeQuery = getEmployeeQuery;
+            _getEmployeesQuery = getEmployeesQuery;
             _deleteEmployeeCommand = deleteEmployeeCommand;
         }
 
@@ -43,18 +40,18 @@ namespace EmployeeManagementApi.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetCompanyHierarchy()
+        public async Task<IActionResult> GetAll()
         {            
-            var result = await _getCompanyHierarchyQuery.ExecuteAsync();        
+            var result = await _getEmployeesQuery.GetAllEmployeesAsync();        
             return Ok(result);
         }
 
         [HttpGet("employee")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetEmployee(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var result = await _getEmployeeQuery.ExecuteAsync(id);
+            var result = await _getEmployeesQuery.GetEmployeeAsync(id);
             if (result.Success)
             {
                 return Ok(result);

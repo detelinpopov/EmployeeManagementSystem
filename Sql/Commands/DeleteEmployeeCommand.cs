@@ -4,6 +4,7 @@ using Interfaces.Infrastructure.Commands;
 using Domain.Entities.Results;
 using Interfaces.Infrastructure.Entities;
 using Infrastructure.Mappers;
+using Infrastructure.Entities;
 
 namespace Infrastructure.Repositories
 {
@@ -15,7 +16,7 @@ namespace Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
-       
+
         public async Task<DeleteEmployeeResult> ExecuteAsync(int id)
         {
             var deleteEmployeeResult = new DeleteEmployeeResult();
@@ -27,9 +28,20 @@ namespace Infrastructure.Repositories
                 return deleteEmployeeResult;
             }
 
-            if(employeeToDelete.ManagerId == null)
+            deleteEmployeeResult = ReassignDirectReports(employeeToDelete);
+
+            _dbContext.Remove(employeeToDelete);
+            await _dbContext.SaveChangesAsync();
+            return deleteEmployeeResult;
+        } 
+        
+        private static DeleteEmployeeResult ReassignDirectReports(Employee employeeToDelete)
+        {
+            var deleteEmployeeResult = new DeleteEmployeeResult();
+
+            if (employeeToDelete.ManagerId == null)
             {
-                foreach(var directReport in employeeToDelete.ManagedEmployees)
+                foreach (var directReport in employeeToDelete.ManagedEmployees)
                 {
                     directReport.ManagerId = null;
                     deleteEmployeeResult.ReassignedEmployees.Add(directReport.ToEmployeeModelResult());
@@ -44,10 +56,7 @@ namespace Infrastructure.Repositories
                 }
             }
 
-            _dbContext.Remove(employeeToDelete);
-            await _dbContext.SaveChangesAsync();
-
             return deleteEmployeeResult;
-        }      
+        }
     }
 }

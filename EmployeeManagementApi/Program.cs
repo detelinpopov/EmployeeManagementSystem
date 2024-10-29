@@ -24,8 +24,7 @@ builder.Services.AddDbContext<EmployeeDbContext>(options =>
 
 builder.Services.AddScoped<IAddEmployeeCommand, AddEmployeeCommand>();
 builder.Services.AddScoped<IDeleteEmployeeCommand, DeleteEmployeeCommand>();
-builder.Services.AddScoped<IGetCompanyHierarchyQuery, GetCompanyHierarchyQuery>();
-builder.Services.AddScoped<IGetEmployeeQuery, GetEmployeeQuery>();
+builder.Services.AddScoped<IGetEmployeesQuery, GetEmployeesQuery>();
 
 var app = builder.Build();
 

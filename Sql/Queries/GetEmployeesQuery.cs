@@ -8,16 +8,16 @@ using Domain.Entities.Results;
 
 namespace Infrastructure.Queries
 {
-    public class GetEmployeeQuery : IGetEmployeeQuery
+    public class GetEmployeesQuery : IGetEmployeesQuery
     {
         private readonly EmployeeDbContext _dbContext;
 
-        public GetEmployeeQuery(EmployeeDbContext dbContext)
+        public GetEmployeesQuery(EmployeeDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<GetEmployeeResult> ExecuteAsync(int employeeId)
+        public async Task<GetEmployeeResult> GetEmployeeAsync(int employeeId)
         {
             var result = new GetEmployeeResult();
             var employee = await _dbContext.Employees.Include(nameof(Employee.ManagedEmployees)).FirstOrDefaultAsync(e => e.Id == employeeId);
@@ -32,6 +32,22 @@ namespace Infrastructure.Queries
             result.EmployeeHierarchy = employeeResult;
 
             employeeResult.DirectReports = await GetDirectReportsAsync(employee.Id);
+
+            return result;
+        }
+
+        public async Task<GetCompanyHierarchyResult> GetAllEmployeesAsync()
+        {
+            var result = new GetCompanyHierarchyResult();
+            var topManagers = await _dbContext.Employees.Include(nameof(Employee.ManagedEmployees)).Where(e => e.ManagerId == null).ToListAsync();
+
+            foreach (var manager in topManagers)
+            {
+                var employeeResult = manager.ToEmployeeModelResult();
+                result.TopManagers.Add(employeeResult);
+
+                employeeResult.DirectReports = await GetDirectReportsAsync(manager.Id);
+            }
 
             return result;
         }
