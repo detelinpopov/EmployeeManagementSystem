@@ -2,9 +2,8 @@
 using Infrastructure.Context;
 using Interfaces.Infrastructure.Queries;
 using Infrastructure.Entities;
-using Domain.Entities;
-using Infrastructure.Mappers;
 using Domain.Entities.Results;
+using Infrastructure.Mappers;
 
 namespace Infrastructure.Queries
 {

@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.Results;
 using Interfaces.Infrastructure.Entities;
 
 namespace Infrastructure.Mappers
