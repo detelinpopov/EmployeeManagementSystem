@@ -46,7 +46,7 @@ namespace EmployeeManagementApi.Controllers
             return Ok(result);
         }
 
-        [HttpGet("employee")]
+        [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Get(int id)
@@ -60,7 +60,7 @@ namespace EmployeeManagementApi.Controllers
             return BadRequest(result.GetErrorsAsString());
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete(int id)

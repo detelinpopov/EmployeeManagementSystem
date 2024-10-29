@@ -21,7 +21,6 @@ namespace Infrastructure.Queries
         {
             var result = new GetEmployeeResult();
             var employee = await _dbContext.Employees.Include(nameof(Employee.ManagedEmployees)).FirstOrDefaultAsync(e => e.Id == employeeId);
-
             if(employee == null)
             {
                 result.Errors.Add(new ErrorModel { ErrorMessage = $"Employee with Id = '{employeeId}' was not found." });
@@ -32,7 +31,6 @@ namespace Infrastructure.Queries
             result.EmployeeHierarchy = employeeResult;
 
             employeeResult.DirectReports = await GetDirectReportsAsync(employee.Id);
-
             return result;
         }
 
