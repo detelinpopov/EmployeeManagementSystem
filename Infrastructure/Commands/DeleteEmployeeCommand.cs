@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Infrastructure.Context;
-using Interfaces.Infrastructure.Commands;
+using Domain.Interfaces.Commands;
 using Domain.Entities.Results;
-using Interfaces.Infrastructure.Entities;
 using Infrastructure.Mappers;
 using Infrastructure.Entities;
+using Domain.Interfaces.Entities;
 
 namespace Infrastructure.Repositories
 {

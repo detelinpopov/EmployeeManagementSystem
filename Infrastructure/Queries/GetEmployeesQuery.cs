@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Infrastructure.Context;
-using Interfaces.Infrastructure.Queries;
+using Domain.Interfaces.Queries;
 using Infrastructure.Entities;
 using Domain.Entities.Results;
 using Infrastructure.Mappers;

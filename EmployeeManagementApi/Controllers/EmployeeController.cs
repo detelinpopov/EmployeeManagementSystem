@@ -1,7 +1,7 @@
 using Domain.Entities;
+using Domain.Interfaces.Commands;
+using Domain.Interfaces.Queries;
 using EmployeeManagementApi.Validators;
-using Interfaces.Infrastructure.Commands;
-using Interfaces.Infrastructure.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementApi.Controllers

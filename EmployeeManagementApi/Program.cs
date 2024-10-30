@@ -1,9 +1,9 @@
 using Infrastructure.Context;
 using Infrastructure.Queries;
 using Infrastructure.Repositories;
-using Interfaces.Infrastructure.Commands;
-using Interfaces.Infrastructure.Queries;
+using Domain.Interfaces.Commands;
 using Microsoft.EntityFrameworkCore;
+using Domain.Interfaces.Queries;
 
 
 var builder = WebApplication.CreateBuilder(args);

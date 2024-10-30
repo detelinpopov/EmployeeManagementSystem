@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Infrastructure.Context;
 using Infrastructure.Entities;
-using Interfaces.Infrastructure.Commands;
 using Domain.Entities;
 using Domain.Entities.Results;
+using Domain.Interfaces.Commands;
 
 namespace Infrastructure.Repositories
 {

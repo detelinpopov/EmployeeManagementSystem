@@ -1,5 +1,5 @@
 ﻿using Domain.Entities.Results;
-using Interfaces.Infrastructure.Entities;
+using Domain.Interfaces.Entities;
 
 namespace Infrastructure.Mappers
 {
