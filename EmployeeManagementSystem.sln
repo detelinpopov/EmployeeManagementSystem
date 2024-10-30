@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces", "Interfaces\Interfaces.csproj", "{3CBE671D-B108-4BAD-B7D4-14B5A5CA9407}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Sql\Infrastructure.csproj", "{130CBE39-1E9F-49D2-AE3F-7C6C5EDD33CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{130CBE39-1E9F-49D2-AE3F-7C6C5EDD33CE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagementApi", "EmployeeManagementApi\EmployeeManagementApi.csproj", "{81968E4A-DE4E-43EF-AE78-C7EC36D796C2}"
 EndProject
